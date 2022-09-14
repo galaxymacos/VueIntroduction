@@ -1,16 +1,13 @@
 <!--Vue composition API-->
 
 <script setup>
-import { ref } from 'vue'
-const titleClass = ref('title')
+import {ref} from "vue";
+const count = ref(0);
+function onClick() {
+  count.value++;
+}
 </script>
 
 <template>
-  <h1 v-bind:class="titleClass">Make me red</h1>
+  <button @click="onClick">Count is {{count}}</button>
 </template>
-
-<style>
-.title {
-  color: red;
-}
-</style>
