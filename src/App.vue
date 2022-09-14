@@ -1,13 +1,16 @@
 <!--Vue composition API-->
 
 <script setup>
-import { ref, reactive } from 'vue'
-
-const counter = reactive({ count: 0})  // reactive contains an object
-const message = ref("Count is:")  // ref contains a value
+import { ref } from 'vue'
+const titleClass = ref('title')
 </script>
 
 <template>
-  <h1>{{ message }}</h1>
-  <p>{{ counter.count }}</p>
+  <h1 v-bind:class="titleClass">Make me red</h1>
 </template>
+
+<style>
+.title {
+  color: red;
+}
+</style>
