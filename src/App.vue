@@ -1,11 +1,12 @@
 <script setup>
 import { ref } from 'vue'
-import ChildComp from './components/ChildComp.vue'  // Import the child component
+import ChildComp from './components/ChildEmit.vue'
 
-const greeting = ref('Hello from parent')
+const childMsg = ref('No child msg yet')
 </script>
 
 <template>
-<!--  Pass the greeting variable to the child component, the name "msg" must be declared in the defineProps in child -->
-  <ChildComp :msg="greeting" />
+<!--  listen for response event from child using v-on-->
+  <ChildComp @response="(msg) => childMsg = msg" />
+  <p>{{ childMsg }}</p>
 </template>
