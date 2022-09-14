@@ -1,26 +1,13 @@
-<template>
-  <img alt="Vue logo" src="./assets/logo.png">
-  <HelloWorld msg="Welcome to Your Vue.js App"/>
-</template>
+<!--Vue composition API-->
 
-<script>
-import HelloWorld from './components/HelloWorld.vue'
+<script setup>
+import { ref, reactive } from 'vue'
 
-export default {
-  name: 'App',
-  components: {
-    HelloWorld
-  }
-}
+const counter = reactive({ count: 0})  // reactive contains an object
+const message = ref("Count is:")  // ref contains a value
 </script>
 
-<style>
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
-}
-</style>
+<template>
+  <h1>{{ message }}</h1>
+  <p>{{ counter.count }}</p>
+</template>
