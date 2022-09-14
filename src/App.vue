@@ -1,12 +1,10 @@
 <script setup>
-import { ref } from 'vue'
-import ChildComp from './components/ChildEmit.vue'
-
-const childMsg = ref('No child msg yet')
+import SlotsChild from './components/ChildSlots.vue'
 </script>
 
 <template>
-<!--  listen for response event from child using v-on-->
-  <ChildComp @response="(msg) => childMsg = msg" />
-  <p>{{ childMsg }}</p>
+<!--  insert content for child component to show  -->
+  <SlotsChild>
+    <p>Alert</p>
+  </SlotsChild>
 </template>
