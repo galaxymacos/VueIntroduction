@@ -1,10 +1,24 @@
 <script setup>
-import SlotsChild from './components/ChildSlots.vue'
+import JSConfetti from 'js-confetti'
+
+const confetti = new JSConfetti()
+
+function showConfetti() {
+  confetti.addConfetti()
+}
+
+showConfetti()
 </script>
 
 <template>
-<!--  insert content for child component to show  -->
-  <SlotsChild>
-    <p>Alert</p>
-  </SlotsChild>
+  <h1 @click="showConfetti">Congratulations</h1>
 </template>
+
+<style>
+ h1 {
+   font-size: 3rem;
+   text-align: center;
+   margin-top: 10rem;
+   cursor: pointer;
+ }
+</style>
