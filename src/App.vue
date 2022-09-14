@@ -1,36 +1,55 @@
 <script setup>
-import { ref } from 'vue'
-let todo_id = 0
-
-const new_todo = ref('')
-
+import {computed, ref} from 'vue'
+const newTodo = ref('')
+let id = 0
 const todos = ref([
-  { id: 3, text: 'Learn Vue 3' },
-  { id: 2, text: 'Learn Vue 3 Composition API' },
-  { id: 1, text: 'Learn Vue 3 Composition API with TypeScript' },
+  { id: id++, text: 'Learn Vue 3', done: true },
+  { id: id++, text: 'Learn Vue 3 Composition API', done: false },
+  { id: id++, text: 'Build something awesome', done: false },
 ])
+// Computed properties
+const filteredTodos = computed(() => {
+  if(hideDone.value) {
+    return todos.value.filter(todo => !todo.done)
+  }
+  else{
+    return todos.value
+  }
+})
 
-function saveTodo() {
-  todos.value.push({ id: todo_id++, text: new_todo.value }) // use push to add list element at the end
-  new_todo.value = ''
+const hideDone = ref(false)
+function addTodo() {
+  todos.value.push({
+    id: id++,
+    text: newTodo.value,
+    done: false,
+  })
 }
 
 function removeTodo(todo) {
-  todos.value.splice(todos.value.indexOf(todo), 1)  // use splice to remove list element
+  todos.value.splice(todos.value.indexOf(todo), 1)
 }
-
 </script>
 
 <template>
-  <form @submit.prevent="saveTodo">
-    <input v-model="new_todo">
-    <button>Add todo</button>
+  <form @submit.prevent="addTodo">
+    <input v-model="newTodo">
+    <button>Add Todo</button>
   </form>
   <ul>
-<!--  key is used to bind a <li> with key. <li> will fully refresh if key is changed.-->
-    <li v-for="todo in todos" :key="todo.id">
-      {{todo.text}}
+    <li v-for="todo in filteredTodos" :key="todo.id">
+<!-- Bind bool attribute to checkbox -->
+      <input type="checkbox" v-model="todo.done">
+      <span :class="{ done: todo.done }">{{ todo.text }}</span>
       <button @click="removeTodo(todo)">X</button>
     </li>
   </ul>
+<!--inline function-->
+  <button @click="hideDone = !hideDone">{{ hideDone ? 'Show Done' : 'Hide Done'}} </button>
 </template>
+
+<style>
+.done {
+  text-decoration: line-through;
+}
+</style>
