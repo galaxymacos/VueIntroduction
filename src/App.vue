@@ -1,36 +1,19 @@
 <script setup>
 import { ref } from 'vue'
-const numbers = ref([])
+const numbers = ref([1, 2, 3])
 const visible = ref(true)
-function addNumber() {
-  numbers.value.push(numbers.value.length + 1)
-}
-function removeNumber() {
-  numbers.value.pop()
-}
-numbers.value.push(1)
-numbers.value.push(2)
-numbers.value.push(3)
-
-function reverse() {
-  numbers.value.reverse()
-}
-
-function toggleList() {
-  visible.value = !visible.value
-}
-
 </script>
 
 <template>
-  <button @click="toggleList">Toggle List</button>
-  <button @click="addNumber">Push Number</button>
-  <button @click="removeNumber">Pop Number</button>
-  <button @click="reverse">Reverse List</button>
-  <ul v-if="visible">
+  <button @click="visible = !visible">Toggle List</button>
+  <button @click="numbers.push(numbers.length + 1)">Push Number</button>
+  <button @click="numbers.pop()">Pop Number</button>
+  <button @click="numbers.reverse()">Reverse List</button>
+  <ul v-if="visible && numbers.length">
     <li v-for="number in numbers" :key="numbers.indexOf(number)">
       {{ number }}
     </li>
   </ul>
-  <p v-else>List is hidden</p>
+  <p v-else-if="numbers.length">List is hidden, but it is not empty</p>
+  <p v-else>List is empty</p>
 </template>
