@@ -1,30 +1,28 @@
 <script setup>
 import { ref } from 'vue'
-const message = ref("Hello world")
+const hiddenText = ref("hidden text")
+const isRed = ref(false)
+const color = ref("green")
 
-function reverseMessage() {
-  message.value = message.value.split('').reverse().join('')
+function changeColor() {
+  if (color.value === "green") {
+    color.value = "red"
+  } else {
+    color.value = "green"
+  }
 }
-
-function notify() {
-  alert(message.value)  // show alert with message
-}
-
 </script>
 <template>
-  <!--
-    Note we don't need .value inside templates because
-    refs are automatically "unwrapped" in templates.
-  -->
-  <h1>{{ message }}</h1>
-  <button @click="reverseMessage">Reverse Message</button>
-  <button @click="message = message+'!'">Add !</button>
-  <a href="https://vuejs.org" @click.prevent="notify">A link</a> <!-- prevent default event (open link) -->
-</template>
+<!-- directly change the value of an attribute-->
+  <p :title="hiddenText">Hover</p>
+<!--  use bool to add toggle a value on and off in the attribute -->
+  <p :class="{red: isRed}" @click="isRed = !isRed">Red or nothing</p>
+<!--  use string to toggle an attribute in style -->
+  <p :style="{color: color}" @click="changeColor">Red or green</p>
 
+</template>
 <style>
-button, a {
-  display: block; /* make them appear on separate lines */
-  margin-bottom: 10px;
-}
+ .red {
+   color: red;
+ }
 </style>
