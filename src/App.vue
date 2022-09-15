@@ -1,24 +1,30 @@
 <script setup>
-import JSConfetti from 'js-confetti'
+import { ref } from 'vue'
+const message = ref("Hello world")
 
-const confetti = new JSConfetti()
-
-function showConfetti() {
-  confetti.addConfetti()
+function reverseMessage() {
+  message.value = message.value.split('').reverse().join('')
 }
 
-showConfetti()
-</script>
+function notify() {
+  alert(message.value)  // show alert with message
+}
 
+</script>
 <template>
-  <h1 @click="showConfetti">Congratulations</h1>
+  <!--
+    Note we don't need .value inside templates because
+    refs are automatically "unwrapped" in templates.
+  -->
+  <h1>{{ message }}</h1>
+  <button @click="reverseMessage">Reverse Message</button>
+  <button @click="message = message+'!'">Add !</button>
+  <a href="https://vuejs.org" @click.prevent="notify">A link</a> <!-- prevent default event (open link) -->
 </template>
 
 <style>
- h1 {
-   font-size: 3rem;
-   text-align: center;
-   margin-top: 10rem;
-   cursor: pointer;
- }
+button, a {
+  display: block; /* make them appear on separate lines */
+  margin-bottom: 10px;
+}
 </style>
